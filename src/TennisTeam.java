@@ -15,6 +15,8 @@ public class TennisTeam {
     double avgAge(){
         double avgAge = ((double)this.Player1.age + this.Player2.age) / 2;
         return avgAge;
+        // FOR FUTURE STUDY: Look deeper into "casting" variables. Dunno what it means, but it made avgAge return a
+        // properly handled double.
     }
 
 }

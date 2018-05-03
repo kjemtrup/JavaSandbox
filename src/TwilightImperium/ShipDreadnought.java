@@ -10,10 +10,10 @@ public class ShipDreadnought implements ShipUnits { // Project description said 
     public Player Owner;
 
     public ShipDreadnought(Player owner) {
-        ResourceCost = 3;
-        CombatValue = 9;
+        ResourceCost = 5;
+        CombatValue = 5;
         MovSpeed = 1;
-        Capacity = 6;
+        Capacity = 0;
         Owner = owner;
     }
 

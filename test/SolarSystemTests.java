@@ -171,4 +171,6 @@ public class SolarSystemTests {
         assertTrue(AlphaCentauri.getShips().get(0) == RedCarrierCarlos);
 
     }
+
+
 }

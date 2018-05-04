@@ -197,5 +197,4 @@ public class GalaxyTests {
         assertTrue(TheOneFromStarWars.getContainedPlanets().size() == 6);
     }
 
-
 }

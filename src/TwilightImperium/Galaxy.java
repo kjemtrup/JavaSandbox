@@ -2,23 +2,22 @@ package TwilightImperium;
 
 import java.util.ArrayList;
 
-// Design plan is this: Implement only a list of solar systems. Create methods that navigate down "through" systems
-// to return systems, ships, and planets. But god almighty, the tests are going to be MASSIVE
 public class Galaxy {
 
     // Fields
-    ArrayList<SolarSystem> ContainedSystems = new ArrayList<SolarSystem>();
+    ArrayList<SolarSystem> ContainedSystems; // Must correspond to NumberOfSystems, obviously
 
 
     // Constructor
-    public Galaxy(ArrayList<SolarSystem> containedSystems) {
-        ContainedSystems = containedSystems;
+    public Galaxy(ArrayList<SolarSystem> ContainedSystems) {
+        this.ContainedSystems = ContainedSystems;
     }
 
     // Getters
     public ArrayList<SolarSystem> getContainedSystems() {
         return ContainedSystems;
     }
+
 
     // .getShips(), output isn't sorted by any obvious criterion
     public ArrayList<ShipUnits> getContainedShips() {
@@ -54,6 +53,11 @@ public class Galaxy {
         }
         return ContainedPlanets;
     }
+
+    // To implement the Neighbourhood Structure for output of .getContainedSystems(), we import tools for simple
+    // graph definition and manipulation. A hexagonal grid like the one described in the project can be thought of
+    // as a line graph of degree at most 6. Two regions can be either adjacent or not, implying that we can settle
+    // for a simple, undirected graph.
 
 
 }

@@ -172,5 +172,33 @@ public class SolarSystemTests {
 
     }
 
+    // Test whether adjacency hashmap properly implemented
+    @Test
+    public void DoesDirectionWork(){
+        // Initialising four planets
+        Planet Mars = new Planet("Mars",3);
+        Planet Earth = new Planet("Earth",6);
+        Planet Uranus = new Planet("Uranus",4);
+        Planet Jupiter = new Planet("Jupiter",2);
+
+        // Building an arraylist of the same four planets
+        ArrayList<Planet> AlphaCentauriPlanets = new ArrayList<Planet>();
+        ArrayList<Planet> OurSolarSystemPlanets = new ArrayList<Planet>();
+        AlphaCentauriPlanets.add(Mars);
+        AlphaCentauriPlanets.add(Earth);
+        OurSolarSystemPlanets.add(Uranus);
+        OurSolarSystemPlanets.add(Jupiter);
+
+        // Initialising solar systems, two of them
+        SolarSystem AlphaCentauri = new SolarSystem("AlphaCentauri", AlphaCentauriPlanets, null);
+        SolarSystem OurSolarSystem = new SolarSystem("Our Solar System", OurSolarSystemPlanets, null);
+
+        // We need to setup two systems with two planets each, and test different adjacency relations on those
+        AlphaCentauri.setNeighbour(OurSolarSystem, CompassDirections.SOUTH);
+
+        // We set one neighbour relation, and check that both itself and the other direction checks out:
+        assertTrue(AlphaCentauri.getNeighbour(CompassDirections.SOUTH) == OurSolarSystem);
+        assertTrue(OurSolarSystem.getNeighbour(CompassDirections.NORTH) == AlphaCentauri);
+    }
 
 }

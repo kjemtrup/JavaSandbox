@@ -1,6 +1,8 @@
 package TwilightImperium;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SolarSystem {
 
@@ -8,15 +10,16 @@ public class SolarSystem {
     String name;
     ArrayList<Planet> Planets = new ArrayList<Planet>();
     ArrayList<ShipUnits> Ships = new ArrayList<ShipUnits>();
-
+    Map<CompassDirections, SolarSystem> Neighbours = new HashMap<>();
     // Six separate fields declared as type SolarSystem but not initialised inside the class to avoid logical
     // contradictions.
-    SolarSystem NeighbourNorth;
-    SolarSystem NeighbourNorthEast;
-    SolarSystem NeighbourSouthEast;
-    SolarSystem NeighbourSouth;
-    SolarSystem NeighbourSouthWest;
-    SolarSystem NeighbourNorthWest;
+    //SolarSystem NeighbourNorth;
+    //SolarSystem NeighbourNorthEast;
+    //SolarSystem NeighbourSouthEast;
+    //SolarSystem NeighbourSouth;
+    //SolarSystem NeighbourSouthWest;
+    //SolarSystem NeighbourNorthWest;
+
 
     // ArrayList<> chosen instead of array for both fields as they do not require a fixed length to be declared.
     // This does little for the "array" of planets limited to three objects, but allows for an arbitrary number of
@@ -38,56 +41,24 @@ public class SolarSystem {
         else return Planets;
     }
 
-    // Implementation of the next twelve methods could definitely be handled more smoothly using enumerators. I write
-    // this after spending 5 hours trying to implement the hex-grid of systems in class Galaxy.java as a 6-regular line
-    // graph, so for now, this is the simplest way to implement neighbourhood lookups. Regrettably verbose.
+    public void setNeighbour(SolarSystem adjacentsystem, CompassDirections Direction){
 
-    // Get/Set North Neighbour
-    public SolarSystem getNeighbourNorth() {
-        return this.NeighbourNorth;
-    }
-    public void setNeighbourNorth(SolarSystem NeighbourNorth) {
-        this.NeighbourNorth = NeighbourNorth;
-    }
+        this.Neighbours.put(Direction, adjacentsystem);
 
-    // Get/Set NorthEast Neighbour
-    public SolarSystem getNeighbourNorthEast() {
-        return this.NeighbourNorthEast;
-    }
-    public void setNeighbourNorthEast(SolarSystem NeighbourNorthEast) {
-        this.NeighbourNorthEast = NeighbourNorthEast;
+        // I am not sure how to define operational inverses on elements of an enum, other than doing it by cases:
+        CompassDirections OppositeDirection = null;
+        if(Direction == CompassDirections.NORTH) OppositeDirection = CompassDirections.SOUTH;
+        if(Direction == CompassDirections.SOUTH) OppositeDirection = CompassDirections.NORTH;
+        if(Direction == CompassDirections.SOUTHEAST) OppositeDirection = CompassDirections.NORTHWEST;
+        if(Direction == CompassDirections.SOUTHWEST) OppositeDirection = CompassDirections.NORTHEAST;
+        if(Direction == CompassDirections.NORTHWEST) OppositeDirection = CompassDirections.SOUTHEAST;
+        if(Direction == CompassDirections.NORTHEAST) OppositeDirection = CompassDirections.SOUTHWEST;
+        adjacentsystem.Neighbours.put(OppositeDirection, this); // Enforces bidirectional adjacency
     }
 
-    // Get/Set SouthEast Neighbour
-    public SolarSystem getNeighbourSouthEast() {
-        return this.NeighbourSouthEast;
-    }
-    public void setNeighbourSouthEast(SolarSystem NeighbourSouthEast) {
-        this.NeighbourSouthEast = NeighbourSouthEast;
-    }
-
-    // Get/Set South Neighbour
-    public SolarSystem getNeighbourSouth() {
-        return this.NeighbourSouth;
-    }
-    public void setNeighbourSouth(SolarSystem NeighbourSouth) {
-        this.NeighbourSouth = NeighbourSouth;
-    }
-
-    // Get/Set SouthWest Neighbour
-    public SolarSystem getNeighbourSouthWest() {
-        return this.NeighbourSouthWest;
-    }
-    public void setNeighbourSouthWest(SolarSystem NeighbourSouthWest) {
-        this.NeighbourSouthWest = NeighbourSouthWest;
-    }
-
-    // Get/Set NorthWest Neighbour
-    public SolarSystem getNeighbourNorthWest() {
-        return this.NeighbourNorthWest;
-    }
-    public void setNeighbourNorthWest(SolarSystem NeighbourNorthWest) {
-        this.NeighbourNorthWest= NeighbourNorthWest;
+    public SolarSystem getNeighbour(CompassDirections Direction){
+        SolarSystem DirectionSystem = Neighbours.get(Direction);
+        return DirectionSystem;
     }
 
     // Retrieves all ships currently in the system
@@ -95,7 +66,7 @@ public class SolarSystem {
         return Ships;
     }
 
-    // The next two methods just alleviate notation. We can easily add ships to the arraylist using .add(), but
+    // The next two methods just alleviate notation. We can easily add ships to the arraylist Ships using .add(), but
     // defining these methods lets us add or remove ships directly to or from the solar system.
     public ArrayList<ShipUnits> AddShip(ShipUnits EnterShip) {
         Ships.add(EnterShip);

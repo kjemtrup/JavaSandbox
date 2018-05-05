@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Demonstration {
 
-    public void ProblemSeven() {
+    public static Galaxy ProblemSeven() {
 
         // Players initialised
         Player Crassus = new Player("Crassus", "The Emirates of Hacan", "Blue");
@@ -74,11 +74,37 @@ public class Demonstration {
         NorthSystem.AddShip(PompeyCruiserOne);
         NorthSystem.AddShip(PompeyCruiserTwo);
 
-        // Setting up neighbourhood relations which might... which definitely would be better handled by enumerators.
-        CenterSystem.setNeighbourNorth(NorthSystem);
-        CenterSystem.setNeighbourNorth(NorthSystem);
-        // ... A DIRECTED W6 graph needs a line per arc. This'll take a while.
+        // Setting up neighbourhoods. CenterSystem has six neighbours, of the remaining six systems, we need only
+        // declare two neighbourhood relations for three of them.
+        CenterSystem.setNeighbour(NorthSystem, CompassDirections.NORTH);
+        CenterSystem.setNeighbour(NorthEastSystem, CompassDirections.NORTHEAST);
+        CenterSystem.setNeighbour(SouthEastSystem, CompassDirections.SOUTHEAST);
+        CenterSystem.setNeighbour(SouthSystem, CompassDirections.SOUTH);
+        CenterSystem.setNeighbour(SouthWestSystem, CompassDirections.SOUTHWEST);
+        CenterSystem.setNeighbour(NorthWestSystem, CompassDirections.NORTHWEST);
 
+        NorthSystem.setNeighbour(NorthEastSystem, CompassDirections.SOUTHEAST);
+        NorthSystem.setNeighbour(NorthWestSystem, CompassDirections.SOUTHWEST);
+
+        SouthEastSystem.setNeighbour(NorthEastSystem, CompassDirections.NORTH);
+        SouthEastSystem.setNeighbour(SouthSystem, CompassDirections.SOUTHWEST);
+
+        SouthWestSystem.setNeighbour(NorthWestSystem, CompassDirections.NORTH);
+        SouthWestSystem.setNeighbour(SouthSystem, CompassDirections.SOUTHEAST);
+
+        // Adding Contained Systems to arraylist ContainedSystems before building a galaxy on those systems.
+        ArrayList<SolarSystem> ContainedSystems = new ArrayList<SolarSystem>();
+        ContainedSystems.add(NorthEastSystem);
+        ContainedSystems.add(NorthSystem);
+        ContainedSystems.add(NorthWestSystem);
+        ContainedSystems.add(SouthWestSystem);
+        ContainedSystems.add(SouthSystem);
+        ContainedSystems.add(SouthEastSystem);
+        ContainedSystems.add(CenterSystem);
+        Galaxy DemonstrationGalaxy = new Galaxy(ContainedSystems);
+
+        // At long last, a return statement:
+        return DemonstrationGalaxy;
 
     }
 }

@@ -94,13 +94,13 @@ public class Demonstration {
 
         // Adding Contained Systems to arraylist ContainedSystems before building a galaxy on those systems.
         ArrayList<SolarSystem> ContainedSystems = new ArrayList<SolarSystem>();
-        ContainedSystems.add(NorthEastSystem);
-        ContainedSystems.add(NorthSystem);
-        ContainedSystems.add(NorthWestSystem);
-        ContainedSystems.add(SouthWestSystem);
-        ContainedSystems.add(SouthSystem);
-        ContainedSystems.add(SouthEastSystem);
         ContainedSystems.add(CenterSystem);
+        ContainedSystems.add(NorthSystem);
+        ContainedSystems.add(NorthEastSystem);
+        ContainedSystems.add(SouthEastSystem);
+        ContainedSystems.add(SouthSystem);
+        ContainedSystems.add(SouthWestSystem);
+        ContainedSystems.add(NorthWestSystem);
         Galaxy DemonstrationGalaxy = new Galaxy(ContainedSystems);
 
         // At long last, a return statement:

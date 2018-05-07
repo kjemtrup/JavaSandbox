@@ -53,11 +53,14 @@ public class SolarSystem {
         if(Direction == CompassDirections.SOUTHWEST) OppositeDirection = CompassDirections.NORTHEAST;
         if(Direction == CompassDirections.NORTHWEST) OppositeDirection = CompassDirections.SOUTHEAST;
         if(Direction == CompassDirections.NORTHEAST) OppositeDirection = CompassDirections.SOUTHWEST;
-        adjacentsystem.Neighbours.put(OppositeDirection, this); // Enforces bidirectional adjacency
+        adjacentsystem.Neighbours.put(OppositeDirection, this); // Enforces reflexive adjacency
     }
 
     public SolarSystem getNeighbour(CompassDirections Direction){
         SolarSystem DirectionSystem = Neighbours.get(Direction);
+        if (DirectionSystem == null){
+            DirectionSystem = this;
+        }
         return DirectionSystem;
     }
 

@@ -4,6 +4,9 @@ import TwilightImperium.*;
 import org.junit.jupiter.api.Test;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.SortedMap;
+import static TwilightImperium.Demonstration.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GalaxyTests {
@@ -195,6 +198,60 @@ public class GalaxyTests {
 
         // Expect to be able to pluck a ShipUnit out of returned output from method .getContainedShips()
         assertTrue(TheOneFromStarWars.getContainedPlanets().size() == 6);
+    }
+
+    @Test // Undocumented: Running this test multiple times while implementing method .isLegal() allowed for quick
+    // test writing for a quite specific method
+    public void DoesIsLegalConfirm() {
+        Galaxy TestGalaxy = Demonstration.ProblemSeven();
+
+        assertTrue(TestGalaxy.isLegal());
+    }
+
+    @Test
+    void doesMecatolRexExceptionThrow() {
+        Planet Uranus = new Planet("Uranus", 2);
+        Galaxy TestGalaxy = Demonstration.ProblemSeven();
+        SolarSystem MecatolRexSystem = TestGalaxy.getContainedSystems().get(0);
+        MecatolRexSystem.getPlanets().add(Uranus);
+
+        MecatolRexException MecatolExceptionFlag = null;
+        try {
+            TestGalaxy.isLegal();
+        } catch (MecatolRexException e) {
+            MecatolExceptionFlag = e;
+        }
+        assertTrue(MecatolExceptionFlag != null);
+        assertEquals("Mecatol Rex is not in the center system, or it is not alone in the center system.",
+                MecatolExceptionFlag.getMessage());
+    }
+
+    @Test
+    void doesDuplicatePlanetsExceptionThrow() {
+        Planet Uranus = new Planet("Uranus", 2);
+        Galaxy TestGalaxy = Demonstration.ProblemSeven();
+        SolarSystem EmptySystem = TestGalaxy.getContainedSystems().get(2);
+        EmptySystem.getPlanets().add(Uranus);
+        EmptySystem.getPlanets().add(Uranus);
+
+        DuplicatePlanetException DuplicateExceptionFlag = null;
+        try {
+            TestGalaxy.isLegal();
+        } catch (DuplicatePlanetException e) {
+            DuplicateExceptionFlag = e;
+        }
+        assertTrue(DuplicateExceptionFlag != null);
+        assertEquals("There was a duplicate planet. Cloning on this scale is unethical.",
+                DuplicateExceptionFlag.getMessage());
+    }
+
+    @Test
+    void TestFindSortShips() {
+
+        Galaxy TestGalaxy = Demonstration.ProblemSeven();
+
+        // assertTrue(TestGalaxy.FindSortShips(Crassus) instanceof SortedMap<Integer, ShipUnits>);
+
     }
 
 }

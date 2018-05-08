@@ -1,5 +1,5 @@
 // Name: Frederik V. Kjemtrup
-// Student Email: fkjemt12student.aau.dk
+// Student Email: fkjemt12@student.aau.dk
 // Student Nr: 99055
 
 package test;
@@ -56,7 +56,7 @@ public class PlayerTest {
 
     @Test
     void PlayerMethodHashCodeConfirms() {
-        Player HashTest= new Player("Lars", "Jyde", "Bleg");
+        Player HashTest = new Player("Lars", "Jyde", "Bleg");
         Player HashTestComparison = new Player("Lars", "Jyde", "Bleg");
 
         assertTrue(HashTest.hashCode() == HashTest.hashCode());
@@ -65,7 +65,7 @@ public class PlayerTest {
 
     @Test
     void PlayerMethodHashCodeFails() {
-        Player HashTest= new Player("Lars", "Jyde", "Solbrændt");
+        Player HashTest = new Player("Lars", "Jyde", "Solbrændt");
         Player HashTestComparison = new Player("Lars", "Jyde", "Bleg");
 
         assertFalse(HashTest.hashCode() == HashTestComparison.hashCode());

@@ -1,3 +1,7 @@
+// Name: Frederik V. Kjemtrup
+// Student Email: fkjemt12@student.aau.dk
+// Student Nr: 99055
+
 package TwilightImperium;
 
 public class ShipCruiser implements ShipUnits {
@@ -18,23 +22,23 @@ public class ShipCruiser implements ShipUnits {
 
     // Specifying actions of methods extended from interface
 
-    public int getResourceCost(){
+    public int getResourceCost() {
         return this.ResourceCost;
     }
 
-    public int getCombatValue(){
+    public int getCombatValue() {
         return this.CombatValue;
     }
 
-    public int getMovSpeed(){
+    public int getMovSpeed() {
         return this.MovSpeed;
     }
 
-    public int getCapacity(){
+    public int getCapacity() {
         return this.Capacity;
     }
 
-    public Player BelongsToPlayer(){
+    public Player BelongsToPlayer() {
         return this.Owner;
     }
 

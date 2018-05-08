@@ -1,3 +1,7 @@
+// Name: Frederik V. Kjemtrup
+// Student Email: fkjemt12@student.aau.dk
+// Student Nr: 99055
+
 package TwilightImperium;
 
 public class Planet {
@@ -25,11 +29,10 @@ public class Planet {
         if (this.ResourceProduction > 6) {
             String OverflowResourceProductionErrorMsg = "Your planet cannot produce that many resources.";
             throw new IllegalArgumentException(OverflowResourceProductionErrorMsg);
-        }
-        else return this.ResourceProduction;
+        } else return this.ResourceProduction;
 
-        }
     }
+}
 
 
 

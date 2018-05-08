@@ -1,9 +1,15 @@
+// Name: Frederik V. Kjemtrup
+// Student Email: fkjemt12@student.aau.dk
+// Student Nr: 99055
+
 package test;
 
 import TwilightImperium.*;
 import org.junit.jupiter.api.Test;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DemonstrationTests {
@@ -49,7 +55,7 @@ public class DemonstrationTests {
     }
 
     @Test
-    public void DoSystemsHaveProperPlanets(){
+    public void DoSystemsHaveProperPlanets() {
 
         // Building seven planets
         Planet MecatolRex = new Planet("Mecatol Rex", 0);
@@ -183,20 +189,12 @@ public class DemonstrationTests {
     // Having manually checked our implementation each step of the way, we are now ready to write the smallest test
     // input with the most important assertion to test:
     @Test
-    public void IsGalaxyBuilt(){
+    public void IsGalaxyBuilt() {
         Galaxy TestGalaxy = Demonstration.ProblemSeven();
 
         assertTrue(TestGalaxy instanceof Galaxy);
         assertTrue(TestGalaxy.getContainedShips().size() == 6); // Correct number of ships included
         assertTrue(TestGalaxy.getContainedPlanets().size() == 7); // Ditto for planets
-
-        // SouthWest system is empty of planets and ships:
-        assertTrue(TestGalaxy.getContainedSystems().get(3).getPlanets().size() == 0 && TestGalaxy
-                .getContainedSystems().get(3).getShips().size() == 0);
-
-        // I'm sure there's a more sophisticated way to implement the addition of systems to the galaxy. I had to
-        // manually count that the southwest system was the fourth to be added to the arraylist ContainedSystems,
-        // before I could expect anything of the output from .get(3).
 
     }
 

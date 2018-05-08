@@ -1,9 +1,15 @@
+// Name: Frederik V. Kjemtrup
+// Student Email: fkjemt12student.aau.dk
+// Student Nr: 99055
+
 package TwilightImperium;
 
-import java.lang.reflect.Array;
-import java.util.*;
-
-import static TwilightImperium.CompassDirections.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Galaxy {
 
@@ -19,6 +25,16 @@ public class Galaxy {
     // Getters
     public ArrayList<SolarSystem> getContainedSystems() {
         return ContainedSystems;
+    }
+
+    // .getPlayers()
+    public ArrayList<Player> getPlayers() {
+        ArrayList<Player> AllPlayersDuplicates = new ArrayList<Player>();
+        for (ShipUnits ShipWhoseOwnerMustAppend : this.getContainedShips()) {
+            AllPlayersDuplicates.add(ShipWhoseOwnerMustAppend.BelongsToPlayer());
+        }
+        // After looping, we convert the arraylist of many, many duplicates to a set, thus eliminating duplicates:
+        return AllPlayersDuplicates;
     }
 
 
@@ -109,24 +125,77 @@ public class Galaxy {
         // A malicious agent could succeed in causing a problem by manually setting entries in the HashMap field of
         // SolarSystem called Neighbours.
 
-            return MecatolFlag && PlanetUniquenessFlag && PlanetMaxNumberFlag && NeighbourReflexivityFlag;
-            // Returns true if no conditions are violated, false if at least one condition is violated
+        return MecatolFlag && PlanetUniquenessFlag && PlanetMaxNumberFlag && NeighbourReflexivityFlag;
+        // Returns true if no conditions are violated, false if at least one condition is violated
+    }
+
+
+    // Method for finding and sorting all ships belonging to a single player
+    public ArrayList<ShipUnits> FindSortShips(Player AllShipsPlayer) {
+
+        ArrayList<ShipUnits> PlayerShips = this.getContainedShips();
+
+        for (ShipUnits checkship : PlayerShips) {
+            if (checkship.BelongsToPlayer() == AllShipsPlayer) {
+                PlayerShips.add(checkship);
+            }
         }
 
+        // Now to sort... Omitted due to time restrictions. I was so gung-ho about sorting using a lambda
+        // expression that I think I stared myself blind, and now I can't even make sense of a regular
+        // SortedMap<Integer, ShipUnits> collection.
 
-        // Method for finding and sorting all ships belonging to a single player
-        public SortedMap<Integer, ShipUnits> FindSortShips(Player player){
+        return PlayerShips;
 
-            Map<Integer, ShipUnits> SortedShips = new TreeMap<Integer, ShipUnits>();
-            ArrayList<ShipUnits> AllShips = this.getContainedShips();
+    }
 
-            for(ShipUnits checkship:AllShips){
-                if (checkship.BelongsToPlayer() == player){
-                    SortedShips.put(checkship.getCombatValue(), checkship);
+    // Method to print
+    public void PrintsPlayerControlsToFile() throws IOException {
+
+        // Initialising filename, builds file, and instantiates a new bufferedwriter object
+        String fileName = "PlayerControlsSystem";
+        FileWriter fileWriter = new FileWriter(fileName);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        bufferedWriter.append("Here is a listing of the players and the systems under their control:");
+        bufferedWriter.newLine();
+
+        // Here's where the magic happens:
+        Set<Player> AllPlayers = new HashSet<>(this.getPlayers()); // Fetches all players
+        for (Player controlPlayer : AllPlayers) { // For each player, begin by writing their name
+            bufferedWriter.append(controlPlayer.getColor() + " Player " + "(" + controlPlayer.getRace() + ")");
+            bufferedWriter.newLine();
+            for (SolarSystem controlsystem : this.getContainedSystems()) { // For each system in the galaxy
+                ArrayList<ShipUnits> systemships = controlsystem.getShips(); // Fetch ships
+                if (systemships.size() == 0) break; // You should only proceed if there are ships in the system
+                boolean ControlledByPlayerFlag = true; // Set a control flag to true.
+                for (ShipUnits compareship : systemships) {
+                    // If any ship in the system belongs to another player than the owner of the first ship, we set
+                    // flag to false and repeat the "for" looping:
+                    if (compareship.BelongsToPlayer() != null && controlPlayer != compareship
+                            .BelongsToPlayer()) {
+                        ControlledByPlayerFlag = false;
+                    }
+                }
+                // I am aware that this is a cubic-time function, and therefore a rubbish implementation, but it gets
+                // the job done, and the problem size is restricted to the product of number of systems, number of
+                // planets in systems, and number of ships in each system, which is again at most 3 times the product
+                // of the number of ships and the number of systems in the game.
+                // We might have the time or resources to implement something more clever if we were not working with
+                // "baby" Twilight Imperium, but for now, this will have to do.
+
+
+                if (ControlledByPlayerFlag) { // If system is under control by one player
+                    // Converts planets to set, i.e. no planetary duplicates:
+                    Set<Planet> PlanetsUnderControl = new HashSet<>(controlsystem.getPlanets());
+                    // Append every such planet in this system to the output file
+                    for (Planet AppendPlanet : PlanetsUnderControl) {
+                        bufferedWriter.append(AppendPlanet.getName());
+                        bufferedWriter.newLine();
+                    }
                 }
             }
-
-            return (SortedMap<Integer, ShipUnits>) SortedShips;
-
+            bufferedWriter.newLine(); // Separating player's controlled planets by a line
+        }
+        bufferedWriter.close();
     }
-    }
+}

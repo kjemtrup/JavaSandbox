@@ -1,26 +1,27 @@
+// Name: Frederik V. Kjemtrup
+// Student Email: fkjemt12@student.aau.dk
+// Student Nr: 99055
+
 package test;
 
 import TwilightImperium.*;
 import org.junit.jupiter.api.Test;
-import java.lang.reflect.Array;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.SortedMap;
-import static TwilightImperium.Demonstration.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GalaxyTests {
 
     @Test
-    public void IsGalaxyInstanceOfArrayListOfSystems(){
+    public void IsGalaxyInstanceOfArrayListOfSystems() {
         // Initialising three planets
-        Planet Mars = new Planet("Mars",3);
-        Planet Earth = new Planet("Earth",6);
-        Planet Uranus = new Planet("Uranus",4);
+        Planet Mars = new Planet("Mars", 3);
+        Planet Earth = new Planet("Earth", 6);
+        Planet Uranus = new Planet("Uranus", 4);
 
         // Initialising two players to whom the four ships belong
-        Player Lars = new Player("Lars","Jyde","Blue");
-        Player Carlos = new Player("Carlos","Sjællænder","Red");
+        Player Lars = new Player("Lars", "Jyde", "Blue");
+        Player Carlos = new Player("Carlos", "Sjællænder", "Red");
 
         // Initialising four different ship types belonging to two distinct players
         ShipDestroyer BlueDestroyerLars = new ShipDestroyer(Lars);
@@ -59,15 +60,15 @@ public class GalaxyTests {
     }
 
     @Test
-    public void DoesGetContainedShipsReturnAShip(){
+    public void DoesGetContainedShipsReturnAShip() {
         // Initialising three planets
-        Planet Mars = new Planet("Mars",3);
-        Planet Earth = new Planet("Earth",6);
-        Planet Uranus = new Planet("Uranus",4);
+        Planet Mars = new Planet("Mars", 3);
+        Planet Earth = new Planet("Earth", 6);
+        Planet Uranus = new Planet("Uranus", 4);
 
         // Initialising two players to whom the four ships belong
-        Player Lars = new Player("Lars","Jyde","Blue");
-        Player Carlos = new Player("Carlos","Sjællænder","Red");
+        Player Lars = new Player("Lars", "Jyde", "Blue");
+        Player Carlos = new Player("Carlos", "Sjællænder", "Red");
 
         // Initialising four different ship types belonging to two distinct players
         ShipDestroyer BlueDestroyerLars = new ShipDestroyer(Lars);
@@ -111,15 +112,15 @@ public class GalaxyTests {
     }
 
     @Test
-    public void DoesGetContainedPlanetsReturnPlanets(){
+    public void DoesGetContainedPlanetsReturnPlanets() {
         // Initialising three planets
-        Planet Mars = new Planet("Mars",3);
-        Planet Earth = new Planet("Earth",6);
-        Planet Uranus = new Planet("Uranus",4);
+        Planet Mars = new Planet("Mars", 3);
+        Planet Earth = new Planet("Earth", 6);
+        Planet Uranus = new Planet("Uranus", 4);
 
         // Initialising two players to whom the four ships belong
-        Player Lars = new Player("Lars","Jyde","Blue");
-        Player Carlos = new Player("Carlos","Sjællænder","Red");
+        Player Lars = new Player("Lars", "Jyde", "Blue");
+        Player Carlos = new Player("Carlos", "Sjællænder", "Red");
 
         // Initialising four different ship types belonging to two distinct players
         ShipDestroyer BlueDestroyerLars = new ShipDestroyer(Lars);
@@ -156,15 +157,15 @@ public class GalaxyTests {
     }
 
     @Test
-    public void DoesGetContainedPlanetsReturnAllPlanets(){
+    public void DoesGetContainedPlanetsReturnAllPlanets() {
         // Initialising three planets
-        Planet Mars = new Planet("Mars",3);
-        Planet Earth = new Planet("Earth",6);
-        Planet Uranus = new Planet("Uranus",4);
+        Planet Mars = new Planet("Mars", 3);
+        Planet Earth = new Planet("Earth", 6);
+        Planet Uranus = new Planet("Uranus", 4);
 
         // Initialising two players to whom the four ships belong
-        Player Lars = new Player("Lars","Jyde","Blue");
-        Player Carlos = new Player("Carlos","Sjællænder","Red");
+        Player Lars = new Player("Lars", "Jyde", "Blue");
+        Player Carlos = new Player("Carlos", "Sjællænder", "Red");
 
         // Initialising four different ship types belonging to two distinct players
         ShipDestroyer BlueDestroyerLars = new ShipDestroyer(Lars);
@@ -246,12 +247,17 @@ public class GalaxyTests {
     }
 
     @Test
-    void TestFindSortShips() {
-
+    public void DoesCheckControlReturnCorrectly() {
         Galaxy TestGalaxy = Demonstration.ProblemSeven();
 
-        // assertTrue(TestGalaxy.FindSortShips(Crassus) instanceof SortedMap<Integer, ShipUnits>);
+    }
 
+
+    @Test
+    public void TestsAlwaysExecuteSoIUseThisToManuallyCheckFileContents() throws IOException {
+        Galaxy TestGalaxy = Demonstration.ProblemSeven();
+
+        TestGalaxy.PrintsPlayerControlsToFile();
     }
 
 }

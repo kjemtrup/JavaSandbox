@@ -1,11 +1,12 @@
 // Name: Frederik V. Kjemtrup
-// Student Email: fkjemt12student.aau.dk
+// Student Email: fkjemt12@student.aau.dk
 // Student Nr: 99055
 
 package test;
 
 import TwilightImperium.*;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -31,15 +32,15 @@ public class PlanetTests {
 
         IllegalArgumentException OverflowException = null; // Initialises a null exception to remain as such unless
         // exception is thrown
-            try {
-                Uranus.getResourceProduction();
-            } catch (IllegalArgumentException e) {
-                OverflowException = e;
-            }
-            assertTrue(OverflowException != null); // Test passes only when some exception is thrown
-            assertEquals("Your planet cannot produce that many resources.", OverflowException.getMessage()); // Test passes
-        // only when correct exception message is returned.
+        try {
+            Uranus.getResourceProduction();
+        } catch (IllegalArgumentException e) {
+            OverflowException = e;
         }
+        assertTrue(OverflowException != null); // Test passes only when some exception is thrown
+        assertEquals("Your planet cannot produce that many resources.", OverflowException.getMessage()); // Test passes
+        // only when correct exception message is returned.
+    }
 
     @Test
     void PlanetExceptionThrownByNegativeResources() {

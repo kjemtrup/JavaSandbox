@@ -1,18 +1,25 @@
+// Name: Frederik V. Kjemtrup
+// Student Email: fkjemt12@student.aau.dk
+// Student Nr: 99055
+
 package test;
 
 import TwilightImperium.*;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SolarSystemTests {
 
     @Test
-    public void SolarSystemGettersWork(){
+    public void SolarSystemGettersWork() {
         // Initialising three planets
-        Planet Mars = new Planet("Mars",3);
-        Planet Earth = new Planet("Earth",6);
-        Planet Uranus = new Planet("Uranus",4);
+        Planet Mars = new Planet("Mars", 3);
+        Planet Earth = new Planet("Earth", 6);
+        Planet Uranus = new Planet("Uranus", 4);
 
         // Building arraylists is a little dense compared to regular arrays
         ArrayList<Planet> SystemPlanets = new ArrayList<Planet>();
@@ -24,15 +31,15 @@ public class SolarSystemTests {
         SolarSystem AlphaCentauri = new SolarSystem("AlphaCentauri", SystemPlanets, SystemShips);
 
         assertTrue(AlphaCentauri.getPlanets().get(0).getName() == "Mars");
-        }
+    }
 
 
     @Test
-    public void SolarSystemGettersWorkWithLessThanThreePlanets(){
+    public void SolarSystemGettersWorkWithLessThanThreePlanets() {
         // Initialising only two planets
-        Planet Mars = new Planet("Mars",3);
+        Planet Mars = new Planet("Mars", 3);
         Planet Earth = null;
-        Planet Uranus = new Planet("Uranus",4);
+        Planet Uranus = new Planet("Uranus", 4);
 
         // Building arraylists is a little dense compared to regular arrays
         ArrayList<Planet> SystemPlanets = new ArrayList<Planet>();
@@ -48,12 +55,12 @@ public class SolarSystemTests {
     }
 
     @Test
-    public void SolarSystemPlanetOverflowExceptionThrown(){
+    public void SolarSystemPlanetOverflowExceptionThrown() {
         // Initialising four planets
-        Planet Mars = new Planet("Mars",3);
-        Planet Earth = new Planet("Earth",6);
-        Planet Uranus = new Planet("Uranus",4);
-        Planet Jupiter = new Planet("Jupiter",2);
+        Planet Mars = new Planet("Mars", 3);
+        Planet Earth = new Planet("Earth", 6);
+        Planet Uranus = new Planet("Uranus", 4);
+        Planet Jupiter = new Planet("Jupiter", 2);
 
         // Building an arraylist of the same four planets
         ArrayList<Planet> SystemPlanets = new ArrayList<Planet>();
@@ -79,13 +86,13 @@ public class SolarSystemTests {
     }
 
     @Test
-    public void ShipFieldsAccessibleBySolarSystemClass(){
+    public void ShipFieldsAccessibleBySolarSystemClass() {
         // Not concerned with planets in this test
         ArrayList<Planet> SystemPlanets = null;
 
         // Initialising two players to whom the four ships belong
-        Player Lars = new Player("Lars","Jyde","Blue");
-        Player Carlos = new Player("Carlos","Sjællænder","Red");
+        Player Lars = new Player("Lars", "Jyde", "Blue");
+        Player Carlos = new Player("Carlos", "Sjællænder", "Red");
 
         // Initialising four different ship types belonging to two distinct players
         ShipDestroyer BlueDestroyerLars = new ShipDestroyer(Lars);
@@ -116,8 +123,8 @@ public class SolarSystemTests {
         ArrayList<Planet> SystemPlanets = null;
 
         // Initialising two players to whom the four ships belong
-        Player Lars = new Player("Lars","Jyde","Blue");
-        Player Carlos = new Player("Carlos","Sjællænder","Red");
+        Player Lars = new Player("Lars", "Jyde", "Blue");
+        Player Carlos = new Player("Carlos", "Sjællænder", "Red");
 
         // Initialising four different ship types belonging to two distinct players
         ShipDestroyer BlueDestroyerLars = new ShipDestroyer(Lars);
@@ -136,7 +143,7 @@ public class SolarSystemTests {
 
         // Expect to see both ships now in their right place in the "Ships" list belonging to object AlphaCentauri
         assertTrue(AlphaCentauri.getShips().get(0) == BlueDestroyerLars && AlphaCentauri.getShips().get(1) ==
-                RedCarrierCarlos );
+                RedCarrierCarlos);
 
     }
 
@@ -146,8 +153,8 @@ public class SolarSystemTests {
         ArrayList<Planet> SystemPlanets = null;
 
         // Initialising two players to whom the four ships belong
-        Player Lars = new Player("Lars","Jyde","Blue");
-        Player Carlos = new Player("Carlos","Sjællænder","Red");
+        Player Lars = new Player("Lars", "Jyde", "Blue");
+        Player Carlos = new Player("Carlos", "Sjællænder", "Red");
 
         // Initialising four different ship types belonging to two distinct players
         ShipDestroyer BlueDestroyerLars = new ShipDestroyer(Lars);
@@ -174,12 +181,12 @@ public class SolarSystemTests {
 
     // Test whether adjacency hashmap properly implemented
     @Test
-    public void DoesDirectionWork(){
+    public void DoesDirectionWork() {
         // Initialising four planets
-        Planet Mars = new Planet("Mars",3);
-        Planet Earth = new Planet("Earth",6);
-        Planet Uranus = new Planet("Uranus",4);
-        Planet Jupiter = new Planet("Jupiter",2);
+        Planet Mars = new Planet("Mars", 3);
+        Planet Earth = new Planet("Earth", 6);
+        Planet Uranus = new Planet("Uranus", 4);
+        Planet Jupiter = new Planet("Jupiter", 2);
 
         // Building an arraylist of the same four planets
         ArrayList<Planet> AlphaCentauriPlanets = new ArrayList<Planet>();
@@ -201,4 +208,18 @@ public class SolarSystemTests {
         assertTrue(OurSolarSystem.getNeighbour(CompassDirections.NORTH) == AlphaCentauri);
     }
 
+    @Test
+    public void DoesCombatWorkExceptionWork() {
+        Galaxy TestGalaxy = Demonstration.ProblemSeven();
+        Player Pompey = TestGalaxy.getPlayers().get(1);
+        ShipDreadnought PompeyShip = new ShipDreadnought(Pompey);
+        ArrayList<ShipUnits> PompeyFleet = new ArrayList<>();
+        PompeyFleet.add(PompeyShip);
+
+        TestGalaxy.getContainedSystems().get(0).SpaceCombat(PompeyFleet);
+
+        // This test occasionally throw an exception when both fleets are defeated in the same round of hits. I do
+        // not yet know how to assert that the output is either Blue Player, Red Player, or that the method
+        // .SpaceCombat() throws an exception. I can catch exceptions, but, so far, only when I know they're coming.
+    }
 }
